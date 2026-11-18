@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <link rel="icon" href="/favicon.ico">
+
+  <title>Nully's Plaza</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #080808;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 10px;
+      background: #080808;
+      color: #d8d8d8;
+      font-family: "Hurmit Nerd Font", "JetBrains Mono", monospace;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a {
+      color: #8fb8ff;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: white;
+      background: #303030;
+    }
+
+    a:focus-visible {
+      outline: 2px solid #8fb8ff;
+      outline-offset: 3px;
+    }
+
+    .site {
+      width: min(1000px, 100%);
+      margin: auto;
+      border: 2px solid #aaa;
+      background: #111;
+      box-shadow: 6px 6px 0 #000;
+    }
+
+    /* header */
+
+    header {
+      padding: 18px;
+      border-bottom: 2px solid #aaa;
+      background: #181818;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: -2px;
+      color: white;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      color: #888;
+    }
+
+    .nav {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .nav a {
+      display: block;
+      padding: 4px 9px;
+      border: 1px solid #888;
+      background: #202020;
+      text-decoration: none;
+      color: #ddd;
+    }
+
+    .nav a:hover {
+      background: #ddd;
+      color: #111;
+    }
+
+    /* ticker */
+
+    .ticker {
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: 1px solid #555;
+      padding: 4px;
+      background: #0b0b0b;
+      color: #aaa;
+      text-align: center;
+    }
+
+    /* layout */
+
+    .layout {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr) 190px;
+      gap: 8px;
+      padding: 8px;
+    }
+
+    .column {
+      min-width: 0;
+    }
+
+    .box {
+      margin-bottom: 8px;
+      border: 1px solid #777;
+      background: #151515;
+    }
+
+    .box-title {
+      margin: 0;
+      padding: 5px 7px;
+      border-bottom: 1px solid #777;
+      background: #242424;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .box-content {
+      padding: 8px;
+    }
+
+    .box-content p:first-child {
+      margin-top: 0;
+    }
+
+    .box-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* main */
+
+    .hero {
+      min-height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #777;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          #141414 0px,
+          #141414 2px,
+          #171717 2px,
+          #171717 4px
+        );
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: 42px;
+      color: white;
+      letter-spacing: -3px;
+    }
+
+    .hero p {
+      color: #888;
+    }
+
+    .big-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 7px 14px;
+      border: 2px outset #aaa;
+      background: #333;
+      color: white;
+      text-decoration: none;
+    }
+
+    .big-button:active {
+      border-style: inset;
+    }
+
+    /* lists */
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin: 3px 0;
+    }
+
+    /* badges */
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .badge {
+      width: 88px;
+      height: 31px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #888;
+      background: #252525;
+      color: white;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .badges img {
+      width: 88px;
+      height: 31px;
+      object-fit: contain;
+    }
+
+    /* status */
+
+    .status {
+      border: 1px solid #555;
+      padding: 6px;
+      background: #0b0b0b;
+    }
+
+    .online {
+      color: #78d878;
+    }
+
+    /* footer */
+
+    footer {
+      padding: 12px;
+      border-top: 2px solid #aaa;
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+    }
+
+    /* responsive */
+
+    @media (max-width: 750px) {
+      body {
+        padding: 12px 6px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .title {
+        font-size: 26px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero h2 {
+        font-size: 27px;
+      }
+
+      header {
+        padding: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="site">
+
+    <header id="top">
+      <h1 class="title">NULLY'S PLAZA</h1>
+      <div class="subtitle">a little corner of the internet</div>
+
+      <nav class="nav" aria-label="main navigation">
+        <a href="#top">home</a>
+        <a href="#about">about</a>
+        <a href="#updates">updates</a>
+        <a href="https://nully.bearblog.dev">blog</a>
+      </nav>
+    </header>
+
+    <div class="ticker">
+      ★ welcome to my website ★ please enjoy your stay ★ last updated: 05/11/2026 ★
+    </div>
+
+    <main class="layout">
+
+      <!-- LEFT COLUMN -->
+
+      <aside class="column" aria-label="site information">
+
+        <section class="box">
+          <h2 class="box-title">navigation</h2>
+
+    <div class="box-content">
+      <ul>
+        <li>
+          <a href="https://github.com/thatguynully?tab=repositories">
+            projects
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/thatguynully/thatguynully/blob/main/README.md">
+            about me
+          </a>
+        </li>
+        <li>
+          <a href="/distros.html">
+           nully distro history
+          </a>
+        </li>
+      </ul>
+    </div>
+
+        <section class="box">
+          <h2 class="box-title">status</h2>
+
+          <div class="box-content">
+            <div class="status">
+              <span class="online">● online</span>
+              <br>
+              (probably) breaking something
+            </div>
+          </div>
+        </section>
+
+        <section class="box">
+          <h2 class="box-title">currently</h2>
+
+          <div class="box-content">
+            grinding: <b>insanity Any%</b><br><br>
+            coding: <b>smth</b><br><br>
+            os: <b>arch (btw)</b>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- CENTER COLUMN -->
+
+      <section class="column" aria-label="main content">
+
+        <section class="hero">
+          <div>
+            <h2>welcoem</h2>
+            <p>you found my little corner of the web.</p>
+          </div>
+        </section>
+
+        <section class="box" id="about" style="margin-top: 8px;">
+          <h2 class="box-title">about this site</h2>
+
+          <div class="box-content">
+            <p>
+              hello! this is my website where i dump
+              projects, random things, links, games, and whatever
+              else i feel like putting here.
+            </p>
+          </div>
+        </section>
+
+        <section class="box" id="updates">
+          <h2 class="box-title">latest updates</h2>
+
+          <div class="box-content">
+            <b>05/11/2026</b> — cleaned up the website<br>
+            <b>20/09/2026</b> — redesigned the website<br>
+            <b>18/08/2026</b> — website launched
+          </div>
+        </section>
+
+      </section>
+
+      <!-- RIGHT COLUMN -->
+
+      <aside class="column" aria-label="external links and extras">
+
+        <section class="box">
+          <h2 class="box-title">links</h2>
+
+          <div class="box-content">
+            <a href="https://github.com/thatguynully">my github</a><br>
+            <a href="https://youtube.com/@thatguynully">my youtube</a><br>
+            <a href="https://neocities.org/site/nullys">my neocities</a><br>
+            <a href="https://neal.fun">cool website</a><br>
+            <a href="https://theuselessweb.com/">another cool site</a>
+          </div>
+        </section>
+
+        <section class="box">
+          <h2 class="box-title">88x31</h2>
+
+          <div class="box-content">
+            <div class="badges">
+              <div class="badge">MADE WITH<br>HTML</div>
+              <div class="badge">ARCH<br>BTW</div>
+              <div class="badge">FOSS<br>USER</div>
+
+              <img
+                src="/link.png"
+                alt="my website button"
+                width="88"
+                height="31"
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="box">
+          <h2 class="box-title">random</h2>
+
+          <div class="box-content">
+            <b>fun fact:</b><br>
+          THERE WILL BE NO MORE FUN FACTS
+          ONLY JOKES SHALL REIGN MUAHAHAHHA
+          </div>
+        </section>
+
+      </aside>
+
+    </main>
+
+    <footer>
+      Nully's Plaza · powered by silly tech kid<br>
+      <a href="#top">back to top</a> ·
+      <a href="https://github.com/thatguynully/website">source / github</a>
+    </footer>
+
+  </div>
+
+</body>
+</html>
